@@ -82,13 +82,15 @@ Por fim, o modo teleoperado deixa o usuário controlar o robo através de comand
 
 ### 2.2.1   Máquina de estados
 
+A Máquina de estados adotada no projeto se subdivide em três modos distintos, cada qual correspondente a uma das funcionalidades do carrinho acessíveis por meio do aplicativo: modo automático, modo seguidor de linha e modo teleoperado.
 
+Os três modos compartilham uma fase inicial comum, na qual o carrinho é ligado e estabelece a conexão via Bluetooth. Após a conexão bem-sucedida, o sistema entra em um estado de espera designado como "Aguardando Modo de Operação". Nesse estágio, aguarda-se a recepção de um comando, codificado numericamente. Dependendo do comando recebido, o carrinho transita para um dos três modos operacionais disponíveis.
 
+No modo automático, o carrinho permanecerá em espera até que as coordenadas do destino sejam inseridas. É importante notar que o ponto de origem (0,0) será estabelecido assim que o carrinho entrar no modo automático, e isso deve ser considerado ao escolher a coordenada de destino. Se a coordenada estiver correta e o robô não estiver no destino final (ou seja, a coordenada escolhida não é a mesma da posição atual do robô), ele avança para o próximo estado, onde realiza uma verificação dos sensores. Com a confirmação de que os sensores estão operacionais, o sistema progride para o estado "Controle PID", onde o carrinho inicia sua movimentação em direção ao destino, desviando de obstáculos conforme necessário. Após desviar de um obstáculo, o carrinho retorna à sua coordenada inicial e continua o trajeto até chegar ao destino final. Ao atingir o destino, ele retorna ao estado de "Aguardando Destino".
 
+No modo seguidor de linha, o carrinho realiza a configuração dos sensores. Se os sensores estiverem operacionais, ele entra no estado "Aguardando Comando Seguidor". Neste estado, o carro se movimenta para frente caso os sensores do lado esquerdo e direito não detectem a linha e nenhum obstáculo seja identificado. Ele se desloca para a esquerda se o sensor do lado esquerdo detectar a linha e para a direita se o sensor do lado direito a detectar. Se um obstáculo for detectado, o robô para e retorna ao estado "Aguardando Comando Seguidor". Caso o comando de retorno seja acionado, o carrinho volta ao estado inicial de "Aguardando Modo de Operação". Este comportamento permite ao carrinho navegar de forma autônoma, seguindo a linha no chão e respondendo a obstáculos de maneira apropriada.
 
-
-
-
+No modo teleoperado...
 
 
 
